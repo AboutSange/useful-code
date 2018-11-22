@@ -23,4 +23,4 @@ Hello decorator
 [Demo.func.end.....]
 ```
 
-3.
+3.[log_print.py](log_print.py): 日志打印
