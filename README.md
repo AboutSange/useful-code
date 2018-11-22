@@ -16,3 +16,11 @@ $  %24
    %20
 ```
 
+2. [decorator_use_in_class.py](decorator_use_in_class.py): 在类中对方法使用的装饰器，自动打印方法开始和结束日志
+```
+[Demo.func.start.....]
+Hello decorator
+[Demo.func.end.....]
+```
+
+3.
