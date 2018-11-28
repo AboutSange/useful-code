@@ -99,3 +99,9 @@ sdiskpart(device='E:\\', mountpoint='E:\\', fstype='NTFS', opts='rw,fixed')
 ```
 
 11. [hump_to_underline.py](hump_to_underline.py): 将驼峰字符串转换成下划线分隔字符串
+12. [replace_html_label.py](replace_html_label.py): 替换掉html中多余空格、换行、标签等，保留文字
+
+```
+[old]            发财了发财了，萌新这笔钱怎么花比较值啊？<br><img class="BDE_Image" src="https://imgsa.baidu.com/forum/w%3D580/sign=b976fcaad839b6004dce0fbfd9513526/06af02fa513d2697f556f71458fbb2fb4216d8b2.jpg" size="116550" changedsize="true" width="560" height="297" size="116550">
+[new]发财了发财了，萌新这笔钱怎么花比较值啊？
+```
