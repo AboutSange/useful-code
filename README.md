@@ -2,6 +2,11 @@
 常用代码仓库
 
 1. [url_reserved_char_encode.py](url_reserved_char_encode.py): 将url保留字符转成ASCII
+
+
+<details>
+<summary>Details</summary>
+
 ```
 ;  %3B
 /  %2F
@@ -16,25 +21,43 @@ $  %24
    %20
 ```
 
+</details>
+
 2. [decorator_use_in_class.py](decorator_use_in_class.py): 在类中对方法使用的装饰器，自动打印方法开始和结束日志
+
+<details>
+<summary>Details</summary>
+
 ```
 [Demo.func.start.....]
 Hello decorator
 [Demo.func.end.....]
 ```
 
+</details>
+
 3. [log_print.py](log_print.py): 日志打印（日志对象或print）
 4. [run_cmd.py](run_cmd.py): 执行命令行
 5. [coding_convert.py](coding_convert.py): 编码转换（str_to_unicode, unicode_to_str）
 6. [python_copy.py](python_copy.py): 拷贝、移动文件或文件夹
+
+<details>
+<summary>Details</summary>
+
 ```
 [copy]E:\Workspaces\copytest --> E:\Workspaces\dir\fda
 [move]E:\Workspaces\copytest --> E:\Workspaces\dir\fda
 ```
 
+</details>
+
 7. [exit_with_log.py](exit_with_log.py): 格式化退出日志
 8. [make_dir.py](make_dir.py): 更安全地创建目录（解决多个进程同时创建一个目录时异常报错的问题）
 9. [get_computer_info.py](get_computer_info.py): 获取计算机信息、操作系统信息、python信息
+
+<details>
+<summary>Details</summary>
+
 ```
 计算机信息:
 获取计算机名 : PC
@@ -64,7 +87,13 @@ Python implementation SCM revision :
 Python version as tuple : ('2', '7', '10')
 ```
 
+</details>
+
 10. [get_computer_info_by_psutil.py](get_computer_info_by_psutil.py): 通过psutil模块获取CPU、内存、硬盘、网络等信息
+
+<details>
+<summary>Details</summary>
+
 ```
 Now time : 2018-11-17 14:04:55
 User : [suser(name='admin', terminal=None, host='0.0.0.0', started=1542589458.0, pid=None)]
@@ -98,10 +127,17 @@ sdiskpart(device='E:\\', mountpoint='E:\\', fstype='NTFS', opts='rw,fixed')
 {'PhysicalDrive0': sdiskio(read_count=748116, write_count=2966206, read_bytes=28479472128L, write_bytes=56418669056L, read_time=2994L, write_time=3586L)}
 ```
 
+</details>
+
 11. [hump_to_underline.py](hump_to_underline.py): 将驼峰字符串转换成下划线分隔字符串
 12. [replace_html_label.py](replace_html_label.py): 替换掉html中多余空格、换行、标签等，保留文字
+
+<details>
+<summary>Details</summary>
 
 ```
 [old]            发财了发财了，萌新这笔钱怎么花比较值啊？<br><img class="BDE_Image" src="https://imgsa.baidu.com/forum/w%3D580/sign=b976fcaad839b6004dce0fbfd9513526/06af02fa513d2697f556f71458fbb2fb4216d8b2.jpg" size="116550" changedsize="true" width="560" height="297" size="116550">
 [new]发财了发财了，萌新这笔钱怎么花比较值啊？
 ```
+
+</details>
