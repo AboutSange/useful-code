@@ -120,3 +120,6 @@ sdiskpart(device='E:\\', mountpoint='E:\\', fstype='NTFS', opts='rw,fixed')
 [old]            发财了发财了，萌新这笔钱怎么花比较值啊？<br><img class="BDE_Image" src="https://imgsa.baidu.com/forum/w%3D580/sign=b976fcaad839b6004dce0fbfd9513526/06af02fa513d2697f556f71458fbb2fb4216d8b2.jpg" size="116550" changedsize="true" width="560" height="297" size="116550">
 [new]发财了发财了，萌新这笔钱怎么花比较值啊？
 ```
+
+13. [rename.py](rename/rename.py): 将文件夹中的文件和文件夹：1.加上后缀或前缀  2.将关键字改成目标关键字
+
