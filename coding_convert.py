@@ -7,11 +7,12 @@
 import sys
 
 
-def str_to_unicode(str1, encoding='default'):
+def str_to_unicode(str1, encoding='default', debug=False):
     """
     将字符串转换成unicode编码格式
     :param str1: 需要转换编码的字符串本串
     :param encoding: 字符串编码。default, utf-8, gbk, etc.
+    :param bool debug:  是否打印日志
     :return: unicode编码的字符串
     """
     if not isinstance(str1, unicode):
@@ -26,17 +27,20 @@ def str_to_unicode(str1, encoding='default'):
                 str1 = str1.decode(enc)
                 break
             except Exception as e:
-                print('[error]str_to_unicode: decode {0} to unicode failed'.format(enc))
-                print(e)
+                if debug:
+                    print('[error]str_to_unicode: decode {0} to unicode failed'.format(enc))
+                    print(e)
+                pass
 
     return str1
 
 
-def unicode_to_str(str1, encoding='system'):
+def unicode_to_str(str1, encoding='system', debug=False):
     """
     将unicode字符串转换成encoding编码格式
     :param str1: 需要转换编码的字符串本串
     :param encoding: 字符串编码。system, utf-8, gbk, etc.
+    :param bool debug:  是否打印日志
     :return: encoding编码的字符串
     """
     if isinstance(str1, str):
@@ -49,8 +53,10 @@ def unicode_to_str(str1, encoding='system'):
         try:
             str1 = str1.encode(enc)
         except Exception as e:
-            print('[error]unicode_to_str: encode unicode to {0} failed'.format(enc))
-            print(e)
+            if debug:
+                print('[error]unicode_to_str: encode unicode to {0} failed'.format(enc))
+                print(e)
+            pass
 
     return str1
 

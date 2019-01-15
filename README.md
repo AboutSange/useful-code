@@ -1,5 +1,5 @@
 # useful-code
-常用代码仓库
+常用代码仓库(python2版)
 
 1. [url_reserved_char_encode.py](url_reserved_char_encode.py): 将url保留字符转成ASCII
 
