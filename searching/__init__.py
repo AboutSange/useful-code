@@ -1,10 +1,5 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-
-def main():
-    pass
-
-
-if __name__ == '__main__':
-    main()
+# largeW.txt  100W个int值
+# largeT.txt  1000W个int值
