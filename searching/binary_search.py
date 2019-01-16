@@ -40,12 +40,12 @@ def binary_search(key, lst):
     return -1
 
 
-def search_largeT():
+def search_largeW():
     """
     读取文本文件largeT(100W个int值)，从中搜索值，并返回值所在行。如果没搜索到，则返回-1。
     """
     # 读取文本文件
-    with codecs.open('largeT.txt', 'r', 'utf-8') as f:
+    with codecs.open('largeW.txt', 'r', 'utf-8') as f:
         lst_raw = f.readlines()  # read cost: 1.199120044708252s
 
     # 将列表元素转换成int类型
@@ -77,4 +77,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # search_largeT()
+    # search_largeW()
