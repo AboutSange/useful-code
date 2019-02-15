@@ -10,6 +10,7 @@ import socket
 import sys
 import threading
 import re
+import copy
 from time import *
 
 reload(sys)
@@ -25,10 +26,11 @@ ss.bind(ADDR)
 ss.listen(5)
 
 user_sock_dict = {}  # username --> socket，记录已连接的客户端的用户名和套接字的关系
-sock_sock_dict = {}  # user1.socket --> user2.socket，记录通信双方的套接字的对应关系
+user_room_dict = {}  # username --> room, 记录用户名与room的关系
+room_sock_dict = {}  # 记录房间与sock的关系，{room: [sock1, sock2]}
 
 
-def message_transform(sock, addr, user):
+def message_transform(sock, addr, user, room):
     """
     处理客户端确定用户名之后发送的文本
     通信文本类型：
@@ -39,17 +41,22 @@ def message_transform(sock, addr, user):
     :param sock:
     :param addr:
     :param user:
+    :param room:
     :return:
     """
+    friends_sock_list = copy.copy(room_sock_dict[user_room_dict[user]])
+    friends_sock_list.remove(sock)
+
     def _quit():
-        if sock in sock_sock_dict:
+        if user in user_room_dict:
             data = 'Quit.'  # Quit.
-            sock_sock_dict[sock].sendall(data)
-            del sock_sock_dict[sock_sock_dict[sock]]
-            del sock_sock_dict[sock]
+            for s in friends_sock_list:
+                s.sendall(data)
+            friends_sock_list.remove(sock)
+            del user_room_dict[user]
         del user_sock_dict[user]
         sock.close()
-        print '已与{0}断开连接'.format(addr)
+        print '{0}已退出房间{1}'.format(user, room)
 
     while True:
         try:
@@ -58,28 +65,14 @@ def message_transform(sock, addr, user):
             print e
             _quit()
             break
-        print '[{0}]{1} {2}: {3}'.format(ctime(), addr, user, data)
+        print '[{0}]room {1} {2} {3}: {4}'.format(ctime(), room, addr, user, data)
         if not data or data == 'Quit':
             sock.sendall(data)
             _quit()
             break
-        elif re.match('^To:.+', data) is not None:
-            data = data[3:]
-            if data in user_sock_dict:
-                if data == user:
-                    sock.sendall('您正在与自己聊天，输入To:<someone>与someone开始聊天吧')
-                else:
-                    sock_sock_dict[sock] = user_sock_dict[data]
-                    sock_sock_dict[user_sock_dict[data]] = sock
-                    sock.sendall('您即将与 {0} 开始聊天'.format(data))
-                    sock_sock_dict[sock].sendall('{0} 请求跟您聊天'.format(user))
-            else:
-                sock.sendall('用户 {0} 不存在'.format(data))
         else:
-            if sock in sock_sock_dict:
-                sock_sock_dict[sock].sendall('[{0}] {1}: {2}'.format(ctime(), user, data))
-            else:
-                sock.sendall('没人正在与您聊天，输入To:<someone>与someone开始聊天吧')
+            for s in friends_sock_list:
+                s.sendall('[{0}]room {1} {2}: {3}'.format(ctime(), room, user, data))
 
 
 def connect_thread(sock, addr):
@@ -94,6 +87,7 @@ def connect_thread(sock, addr):
     :return:
     """
     # 设置用户名
+
     user = None
     while True:
         try:
@@ -117,9 +111,32 @@ def connect_thread(sock, addr):
         sock.close()
         return
 
-    print '客户端{0}的用户名为：{1}'.format(addr, user)
+    # 加入房间
+    room = None
+    while True:
+        try:
+            room = sock.recv(BUFSIZE)
+        except Exception as e:
+            print e
+            print '客户端{0}未加入房间，并已退出'.format(addr)
+            break
+        if not room:  # 客户端加入房间就退出
+            print '客户端{0}未加入房间，并已退出'.format(addr)
+            break
 
-    message_transform(sock, addr, user)
+        sock.sendall('加入房间 {0} 成功'.format(room))
+        user_room_dict[user] = room
+        if room in room_sock_dict:
+            room_sock_dict[room].append(sock)
+        else:
+            room_sock_dict[room] = [sock]
+        break
+
+    if not room:
+        sock.close()
+        return
+
+    message_transform(sock, addr, user, room)
 
 
 if __name__ == '__main__':

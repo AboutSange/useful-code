@@ -34,7 +34,7 @@ def recv_thread(sock):
     while True:
         data = sock.recv(BUFSIZE)
         if data == 'Quit.':
-            print('您的好友已退出聊天')
+            print('您的一位好友已退出聊天')
             continue
         if data == 'Quit':
             break
@@ -56,7 +56,19 @@ if __name__ == '__main__':
         else:
             break
 
-    if not username:
+    room = None
+    while True:
+        room = raw_input('请输入您要加入的房间(只按Enter则退出)：')
+        cs.sendall(room)
+        if not room:
+            break
+
+        response = cs.recv(BUFSIZE)
+        print response
+        if response:
+            break
+
+    if not username or not room:
         cs.close()
     else:
         send_message = threading.Thread(target=send_thread, args=(cs,))
